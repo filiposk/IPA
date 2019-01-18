@@ -18,9 +18,6 @@
 $string = $_POST['string'];
 echo $string;
 echo '<hr>';
-$inputArray = explode(",", $string);
-print_r($inputArray);
-echo '<hr>';
 $integerArray = array_map('intval', explode(',', $string));
 print_r($integerArray);
 var_dump($integerArray)
