@@ -38,7 +38,7 @@ $r = $a + $b + $c + $d;
 <div style="width: 30%">
     <p style="text-align: right;">
         <?php
-        echo "$a <br> + $b <br>  + $c <br> + $d <hr /> $r";
+        echo "$a <br> + $b <br>  + $c <br> + $d <hr />", $r;
         ?>
     </p>
 
