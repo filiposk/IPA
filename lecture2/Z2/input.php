@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<form action="code.php" method="post">
+<form action="tableCode.php" method="post">
     <input type="text" placeholder="Upiši brojeve" name="string"><br>
     <input type="submit" value="Ispiši tablicu">
 </form>

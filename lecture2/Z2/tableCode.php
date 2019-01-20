@@ -18,26 +18,11 @@ foreach ($integerArray as $key => $value){
 
 echo $sum;
 echo '<hr>';
-$ar = ($sum / count($integerArray) + 1);
+$ar = ($sum / $arrayLenght);
 echo $ar;
 
 
 echo '<hr>';
-//echo $sum;
-//
-//echo '<hr>';
-
-
-
-
-//$closest = null;
-//foreach ($integerArray as $item) {
-//    if ($closest === null || abs($ar - $closest) > abs($value - $ar)) {
-//        $closest = $item;
-//    }
-//}
-//echo '<br>';
-//echo '<strong>'. $closest . '</strong>';
 
 $closest = null;
 foreach ($integerArray as $item) {
@@ -46,18 +31,33 @@ foreach ($integerArray as $item) {
     }
 }
 //echo $closest;
-foreach ($integerArray as $key => $value){
+foreach ($integerArray as $key => $value) {
 
-
-    if($value == $closest){
-        echo "<strong>$value <br></strong>";
-    }else{
-        echo $value. '<br>';
+    if ($value == max($integerArray)) {
+        $tableLenght = sqrt($value + 1);
     }
 }
 
+echo $tableLenght;
+
+
 echo '<hr>';
 
+foreach ($integerArray as $key => $value){
+    if($value % 2 === 0) {
+        $evenArray[] = $value;
+    }
+}
+
+sort($evenArray);
+
+foreach ($evenArray as $key => $value){
+    if ($value == $closest){
+        echo "<strong>$value <br></strong>";
+    }else{
+        echo $value . '<br>';
+    }
+}
 
 
 ?>
