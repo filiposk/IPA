@@ -1,46 +1,14 @@
 <?php
 
 include_once "input.php";
-$string = $_POST['string'];
-//echo $string;
 
+$string = $_POST['string'];
 
 $integerArray = array_map('intval', explode(',', $string));
-//print_r($integerArray);
-//echo '<hr>';
+
 sort($integerArray);
 
-//var_dump($integerArray);
 $arrayLenght = count($integerArray);
-
-
-$ar = (array_sum($evenArray) / $arrayLenght);
-echo $ar;
-
-
-echo '<hr>';
-
-$closest = null;
-foreach ($evenArray as $item) {
-    if ($closest === null || abs($ar - $closest) > abs($item - $ar)) {
-        $closest = $item;
-    }
-}
-//echo $closest;
-foreach ($integerArray as $key => $value) {
-
-    if ($value == max($integerArray)) {
-        $tableLenght = sqrt($value + 1);
-    }
-}
-
-echo $tableLenght;
-echo '<hr>';
-$roundedTableLenght = round($tableLenght, 0, PHP_ROUND_HALF_UP);
-echo $roundedTableLenght;
-
-
-echo '<hr>';
 
 foreach ($integerArray as $key => $value){
     if($value % 2 === 0) {
@@ -48,17 +16,26 @@ foreach ($integerArray as $key => $value){
     }
 }
 
+$ar = (array_sum($integerArray) / $arrayLenght);
+
 sort($evenArray);
 
-foreach ($evenArray as $key => $value){
-    if ($value == $closest){
-        echo "<strong>$value <br></strong>";
-    }else{
-        echo $value . '<br>';
+$closest = null;
+foreach ($evenArray as $item) {
+    if ($closest === null || abs($ar - $closest) > abs($item - $ar)) {
+        $closest = $item;
     }
 }
 
-echo '<hr>';
+foreach ($integerArray as $key => $value) {
+
+    if ($value == max($integerArray)) {
+        $tableLenght = sqrt($value + 1);
+    }
+}
+
+$roundedTableLenght = ceil($tableLenght);
+
 
 echo "<table>";
 $y = 1;
@@ -77,6 +54,3 @@ for($i = 0; $i < $roundedTableLenght; $i++){
     echo "</tr>";
 }
 echo "</table>";
-
-echo '<hr>';
-var_dump($evenArray);
