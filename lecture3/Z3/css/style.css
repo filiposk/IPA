@@ -58,7 +58,7 @@ td{
     margin-bottom: 10px;
     margin-left: 100px;
     padding: 5px;
-    color: solid white;
+
 
 }
 #button{
@@ -83,4 +83,8 @@ td{
     font-family: 'PT Sans Narrow', sans-serif;
     font-size: 24px;
     padding: 10px;
-}s
+}
+.vertical-text {
+    transform: rotate(90deg);
+    transform-origin: left top 0;
+}

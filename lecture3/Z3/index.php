@@ -11,7 +11,7 @@
 <body>
 <div id="wrapper">
     <div id="panel">
-            <p1 id="p1">
+            <p1 id="p1" class="vertical-text">
                 INPUT
             </p1>
                 <form id="form" action="tableCode.php" method="post">
@@ -19,7 +19,7 @@
                 <input id="input" type="text" placeholder="BROJ STUPACA" name="number2"><br>
                 <input id="button" type="submit" value="SUBMIT"><br>
                 </form>
-             <p2 id="p2">
+             <p2 id="p2" class="vertical-text">
                 OUTPUT
             </p2>
         <table id='table'></table>

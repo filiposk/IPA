@@ -1,6 +1,8 @@
 <?php
 
 include_once "index.php";
+error_reporting(E_ALL);
+ini_set('display_errors',1);
 
 $height=$_POST["number1"];
 $width=$_POST ["number2"];
@@ -13,19 +15,19 @@ $width=$_POST ["number2"];
 function createSpiral($w, $h) {
     if ($w <= 0 || $h <= 0) return FALSE;
 
-    $ar   = Array();
-    $used = Array();
+    $ar   = [];
+    $used = [];
 
     // Establish grid
     for ($j = 0; $j < $h; $j++) {
-        $ar[$j] = Array();
+        $ar[$j] = [];
         for ($i = 0; $i < $w; $i++)
             $ar[$j][$i]   = '-';
     }
 
     // Establish 'used' grid that's one bigger in each dimension
     for ($j = -1; $j <= $h; $j++) {
-        $used[$j] = Array();
+        $used[$j] = [];
         for ($i = -1; $i <= $w; $i++) {
             if ($i == -1 || $i == $w || $j == -1 || $j == $h)
                 $used[$j][$i] = true;
