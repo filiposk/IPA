@@ -2,79 +2,106 @@
 
 include_once "index.php";
 
-$redova=$_POST["number1"];
-$kolona=$_POST ["number2"];
+$height=$_POST["number1"];
+$width=$_POST ["number2"];
 
+/**
+ * Creates a 2D array with the given dimensions,
+ * whose elements are numbers in increasing order
+ * rendered in a 'spiral' pattern.
+ */
+function createSpiral($w, $h) {
+    if ($w <= 0 || $h <= 0) return FALSE;
 
+    $ar   = Array();
+    $used = Array();
 
-function napuniMatricu($redova,$kolona){
-    $podaci = array();
-    for($i=0;$i<$redova;$i++){
-        $kolone=array();
-        for($j=0;$j<$kolona;$j++){
-            $kolone[]=0;
-        }
-        $podaci[]=$kolone;
+    // Establish grid
+    for ($j = 0; $j < $h; $j++) {
+        $ar[$j] = Array();
+        for ($i = 0; $i < $w; $i++)
+            $ar[$j][$i]   = '-';
     }
 
-    //čarolija - napuniti
-    $brojac=1;
-
-
-    // prvi krug
-    $a=1;  // brojač krugova
-
-    while ($brojac<=$redova*$kolona){
-        // while ($a<$redova/2 || $a<$kolona/2){
-
-        for($i=$kolona-$a; $i>=($a-1);$i--){              //1 potez
-            if($brojac>$redova*$kolona){
-                return $podaci;
-            }
-            $podaci[$redova-$a][$i]=$brojac++;
+    // Establish 'used' grid that's one bigger in each dimension
+    for ($j = -1; $j <= $h; $j++) {
+        $used[$j] = Array();
+        for ($i = -1; $i <= $w; $i++) {
+            if ($i == -1 || $i == $w || $j == -1 || $j == $h)
+                $used[$j][$i] = true;
+            else
+                $used[$j][$i] = false;
         }
-
-        for($i=$redova-($a+1); $i>=($a-1);$i--){              // 2 potez
-            if($brojac>$redova*$kolona){
-                return $podaci;
-            }
-            $podaci[$i][$a-1]=$brojac++;
-        }
-
-        for ($i=$a;$i<$kolona-($a-1);$i++){                 //3 potez
-            if($brojac>$redova*$kolona){
-                return $podaci;
-            }
-            $podaci[$a-1][$i]=$brojac++;
-
-        }
-
-        for($i=$a;$i<$redova-$a;$i++){                //4 potez
-            if($brojac>$redova*$kolona){
-                return $podaci;
-            }
-            $podaci[$i][$kolona-$a]=$brojac++;
-
-        }
-        $a++;
     }
-    return $podaci;
+
+    // Fill grid with spiral
+    $n = 1;
+    $i = 0;
+    $j = 0;
+    $direction = 0; // 0 - left, 1 - down, 2 - right, 3 - up
+    while (true) {
+        $ar[$j][$i]   = $n++;
+        $used[$j][$i] = true;
+
+        // Advance
+        switch ($direction) {
+            case 0:
+                $i++; // go right
+                if ($used[$j][$i]) { // got to RHS
+                    $i--; $j++; // go back left, then down
+                    $direction = 1;
+                }
+                break;
+            case 1:
+                $j++; // go down
+                if ($used[$j][$i]) { // got to bottom
+                    $j--; $i--; // go back up, then left
+                    $direction = 2;
+                }
+                break;
+            case 2:
+                $i--; // go left
+                if ($used[$j][$i]) { // got to LHS
+                    $i++; $j--; // go back left, then up
+                    $direction = 3;
+                }
+                break;
+            case 3:
+                $j--; // go up
+                if ($used[$j][$i]) { // got to top
+                    $j++; $i++; // go back down, then right
+                    $direction = 0;
+                }
+                break;
+        }
+
+        // if the new position is in use, we're done!
+        if ($used[$j][$i])
+            return $ar;
+    }
 }
 
 
-
-
-$podaci = napuniMatricu($redova,$kolona);
-
-
-
-
-echo "<table>";
-for($i=0;$i<$redova;$i++){
-    echo "<tr>";
-    for($j=0;$j<$kolona;$j++){
-        echo "<td>" . $podaci[$i][$j] . "</td>";
+/**
+ * Builds table with given array
+ */
+function buildTable($array){
+    // start table
+    $html = '<table class="table">';
+    // data rows
+    foreach( $array as $key=>$value){
+        $html .= '<tr>';
+        foreach($value as $key2=>$value2){
+            $html .= '<td>' . htmlspecialchars($value2) . '</td>';
+        }
+        $html .= '</tr>';
     }
-    echo "</tr>";
+
+    // finish table and return it
+
+    $html .= '</table>';
+    return $html;
 }
-echo "</table>";
+
+$array = createSpiral($width, $height);
+echo buildTable($array);
